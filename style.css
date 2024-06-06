@@ -1,0 +1,21 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+     outline: 1px solid red; 
+}
+
+
+.carousel{
+    border: solid greenyellow 3px;
+    height: 40vh;
+}
+.carousel img{
+    height: 38vh;
+    object-fit: cover;
+}
+
+.card {
+    width: 200px;
+    margin: 40px;
+  }
