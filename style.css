@@ -37,3 +37,9 @@ body{
   .form-control{
     border: black solid 2px;
   }
+  table{
+    border: rgb(20, 20, 20) solid 2px;
+  }
+  td{
+    height: 3rem;
+  }
