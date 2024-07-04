@@ -188,39 +188,40 @@ const data = {
 };
 
 
-
-
-
 function showCards(eventos) {
-    let card = document.getElementById("containert-cards")
+    let cardContainer = document.getElementById("containert-cards")
+
+    let currentDate = new Date(data.currentDate)
 
     for (let i = 0; i < eventos.length; i++) {
         let evento = eventos[i];
 
-        let nextCard = document.createElement('div')
-        nextCard.className = "card  card-1  d-flex justify-content-center align-items-center col-6 mb-3"
+        let eventDate = new Date(evento.date)
 
-        nextCard.innerHTML = `
-            
-                        <div class="imgCard row d-flex justify-content-center align-items-center ">
-                            <img src="${evento.image}" class="card-img-top" alt="${evento.name}">
+        if (eventDate < currentDate) {
+            let nextCard = document.createElement('div')
+            nextCard.className = "card card-1 d-flex justify-content-center align-items-center col-6 mb-3"
+
+            nextCard.innerHTML = `
+                <div class="imgCard row d-flex justify-content-center align-items-center">
+                    <img src="${evento.image}" class="card-img-top" alt="${evento.name}">
+                </div>
+                <div class="card-body row d-flex justify-content-end align-items-center">
+                    <h5 class="card-title">${evento.name}</h5>
+                    <p class="card-text">${evento.description}</p>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="h6">Price: $${evento.price}</p>
                         </div>
-                        <div class="card-body row d-flex justify-content-end align-items-center">
-                            <h5 class="card-title">${evento.name}</h5>
-                            <p class="card-text">${evento.description}</p>
-                            <div class="row">
-                                <div class="col-6">
-                                    <p class="h6">Price: $${evento.price}</p>
-                                </div>
-                                <div class="col-6">
-                                    <a href="./details.html" class="btn btn-info btn-block">DETAILS</a>
-                                </div>
-                            </div>
+                        <div class="col-6">
+                            <a href="./details.html" class="btn btn-info btn-block">DETAILS</a>
                         </div>
+                    </div>
+                </div>
+            `;
 
-        `
-
-        card.appendChild(nextCard);
+            cardContainer.appendChild(nextCard)
+        }
     }
 }
 

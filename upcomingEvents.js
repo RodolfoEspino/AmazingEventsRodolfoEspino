@@ -206,7 +206,7 @@ function showCards(eventos) {
                 <div class="imgCard row d-flex justify-content-center align-items-center">
                     <img src="${evento.image}" class="card-img-top" alt="${evento.name}">
                 </div>
-                <div class="card-body">
+                <div class="card-body row d-flex justify-content-end align-items-center">
                     <h5 class="card-title">${evento.name}</h5>
                     <p class="card-text">${evento.description}</p>
                     <div class="row">

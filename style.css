@@ -93,12 +93,12 @@ i:hover{
 }
 /* css cards */
 .cards h5{
-font-size: 1.2rem;
+font-size: 1rem;
 font-weight: bolder;
 }
 .imgCard{
   width: 100%;
-  height: 80%;
+  height: 50%;
   border-radius: 0px;
 }
 
@@ -115,7 +115,7 @@ font-weight: bolder;
 }
 .card-1 {
   width: 290px;
-  height: 100vh;
+  height: 80vh;
   font-size: .8rem;
   border-radius: 30PX;
   border: solid 1px rgb(10, 10, 10);
