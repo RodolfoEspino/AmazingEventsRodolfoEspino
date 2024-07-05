@@ -194,7 +194,7 @@ function showCards(eventos) {
     let currentDate = new Date(data.currentDate)
 
     for (let i = 0; i < eventos.length; i++) {
-        let evento = eventos[i];
+        let evento = eventos[i]
 
         let eventDate = new Date(evento.date)
 

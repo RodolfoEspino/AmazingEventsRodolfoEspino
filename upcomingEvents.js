@@ -194,12 +194,12 @@ function showCards(eventos) {
     let currentDate = new Date(data.currentDate)
 
     for (let i = 0; i < eventos.length; i++) {
-        let evento = eventos[i];
+        let evento = eventos[i]
 
         let eventDate = new Date(evento.date)
 
         if (eventDate > currentDate) {
-            let nextCard = document.createElement('div');
+            let nextCard = document.createElement('div')
             nextCard.className = "card card-1 d-flex justify-content-center align-items-center col-6 mb-3"
 
             nextCard.innerHTML = `

@@ -195,7 +195,7 @@ function showCards(eventos) {
     let card = document.getElementById("containert-cards")
 
     for (let i = 0; i < eventos.length; i++) {
-        let evento = eventos[i];
+        let evento = eventos[i]
 
         let nextCard = document.createElement('div')
         nextCard.className = "card  card-1  d-flex justify-content-center align-items-center col-6 mb-3"
@@ -220,7 +220,7 @@ function showCards(eventos) {
 
         `
 
-        card.appendChild(nextCard);
+        card.appendChild(nextCard)
     }
 }
 
