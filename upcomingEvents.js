@@ -191,7 +191,16 @@ const data = {
 function showCards(eventos) {
     let cardContainer = document.getElementById("containert-cards")
 
+
+    cardContainer.innerHTML = ''
+
+
     let currentDate = new Date(data.currentDate)
+
+    if (eventos.length === 0) {
+        cardContainer.innerHTML = '<p>No se encontraron eventos que coincidan con la búsqueda.</p>'
+        return
+    }
 
     for (let i = 0; i < eventos.length; i++) {
         let evento = eventos[i]
@@ -214,15 +223,85 @@ function showCards(eventos) {
                             <p class="h6">Price: $${evento.price}</p>
                         </div>
                         <div class="col-6">
-                            <a href="./details.html" class="btn btn-info btn-block">DETAILS</a>
+                            <a href="./details.html?id=${evento._id}" class="btn btn-info btn-block">DETAILS</a>
                         </div>
                     </div>
                 </div>
-            `;
+            `
 
             cardContainer.appendChild(nextCard)
         }
     }
+
+    if (cardContainer.innerHTML === '') {
+        cardContainer.innerHTML = '<p>No se encontraron eventos que coincidan con la búsqueda.</p>'
+    }
+
+
+    function filterEvents() {
+        const checkboxes = document.querySelectorAll('.form-check-input:checked')
+        const selectedCategories = Array.from(checkboxes).map(checkbox => checkbox.value.toLowerCase())
+
+        const searchText = document.getElementById('searchText').value.trim().toLowerCase()
+
+        const filteredEvents = data.events.filter(evento => {
+            // Filtrar por categorías seleccionadas
+            const categoryMatch = selectedCategories.length === 0 || selectedCategories.includes(evento.category.toLowerCase())
+            // Filtrar por texto de búsqueda en nombre y descripción
+            const textMatch = evento.name.toLowerCase().includes(searchText) || evento.description.toLowerCase().includes(searchText)
+
+            return categoryMatch && textMatch
+        })
+
+        showCards(filteredEvents)
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const categories = []
+
+        // Obtener  categorías  de los eventos
+        data.events.forEach(event => {
+            if (!categories.includes(event.category)) {
+                categories.push(event.category)
+            }
+        })
+
+        // Contenedor donde se añadirán los checkboxes
+        const checkboxContainer = document.getElementById('checkbox-container')
+
+        // HTML para los checkboxes
+        let checkboxesHTML = ''
+
+        categories.forEach(category => {
+            const id = category.toLowerCase().replace(' ', '-') + '-checkbox'
+            const value = category.toLowerCase()
+
+            checkboxesHTML += `
+                <div class="check-1 d-flex align-items-center col-sm-1 col-md-1 col-lg-3 col-xl-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="${id}" value="${value}">
+                        <label class="form-check-label" for="${id}">${category}</label>
+                    </div>
+                </div>
+            `
+        })
+
+        // sincronizacion de busqueda por checkbox y buscador
+        checkboxContainer.innerHTML = checkboxesHTML
+
+        
+        const checkboxInputs = document.querySelectorAll('.form-check-input');
+        checkboxInputs.forEach(input => {
+            input.addEventListener('change', filterEvents)
+        })
+
+        
+        const searchInput = document.getElementById('searchText')
+        searchInput.addEventListener('input', filterEvents)
+
+        
+        showCards(data.events)
+    })
 }
 
 showCards(data.events)
