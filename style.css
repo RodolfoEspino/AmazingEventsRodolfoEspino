@@ -80,17 +80,17 @@ i:hover{
 }
 .check-1{
   height: 1.5rem;
-  color: rgb(206, 56, 2);
-  font-weight: bolder;
-  font-size: .9rem;
+  color: rgb(15, 15, 15);
+  font-weight:bold;
+  font-size: 1.2rem;
   
  
   transition: all 0.2s ease;
 }
-.check-1:hover{
+/* .check-1:hover{
   transform: scale(1.2);
   font-weight: 900;
-}
+} */
 /* css cards */
 .cards h5{
 font-size: 1rem;
@@ -122,11 +122,11 @@ font-weight: bolder;
  
   transition: all 0.4s ease;
 }
-.card-1:hover{
+/* .card-1:hover{
   transform: scale(1.05);
   border: solid 2px black;
   margin: 5rem; 
-}
+} */
 
 /* css contact */
 .box{
@@ -151,11 +151,11 @@ text-decoration: none;
 .card-2{
   border-radius: 30px;
   background-image:  linear-gradient(0deg, rgba(255, 255,255,1)20%, rgb(141, 155, 163) 70%);
-  border: solid 1px black;
+  border: solid 2px rgb(240, 45, 10);
   height: 70vh;
 }
 .card-2 img{
-  width: 80%;
+  width: 100%;
   height: 50vh;
   border-radius: 30px;
   
