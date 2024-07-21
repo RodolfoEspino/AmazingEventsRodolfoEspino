@@ -185,7 +185,7 @@ const data = {
             __v: 0,
         },
     ],
-};
+}
 
 
 
@@ -193,6 +193,13 @@ const data = {
 
 function showCards(eventos) {
     let card = document.getElementById("containert-cards")
+    card.innerHTML = ''
+
+
+    if (eventos.length === 0) {
+        card.innerHTML = '<p>No se encontraron eventos que coincidan con la búsqueda.</p>'
+        return
+    }
 
     for (let i = 0; i < eventos.length; i++) {
         let evento = eventos[i]
@@ -201,27 +208,103 @@ function showCards(eventos) {
         nextCard.className = "card  card-1  d-flex justify-content-center align-items-center col-6 mb-3"
 
         nextCard.innerHTML = `
-            
-                        <div class="imgCard row d-flex justify-content-center align-items-center ">
-                            <img src="${evento.image}" class="card-img-top" alt="${evento.name}">
-                        </div>
-                        <div class="card-body row d-flex justify-content-end align-items-center">
-                            <h5 class="card-title">${evento.name}</h5>
-                            <p class="card-text">${evento.description}</p>
-                            <div class="row">
-                                <div class="col-6">
-                                    <p class="h6">Price: $${evento.price}</p>
-                                </div>
-                                <div class="col-6">
-                                    <a href="./details.html" class="btn btn-info btn-block">DETAILS</a>
-                                </div>
-                            </div>
-                        </div>
-
+            <div class="imgCard row d-flex justify-content-center align-items-center ">
+                <img src="${evento.image}" class="card-img-top" alt="${evento.name}">
+            </div>
+            <div class="card-body row d-flex justify-content-end align-items-center">
+                <h5 class="card-title">${evento.name}</h5>
+                <p class="card-text">${evento.description}</p>
+                <div class="row">
+                    <div class="col-6">
+                        <p class="h6">Price: $${evento.price}</p>
+                    </div>
+                    <div class="col-6">
+                        <a href="./details.html?id=${evento._id}"  id="details-button" class="btn btn-info btn-block">DETAILS</a>
+                    </div>
+                </div>
+            </div>
         `
 
         card.appendChild(nextCard)
     }
+
+
+    if (card.innerHTML === '') {
+        card.innerHTML = '<p>No se encontraron eventos que coincidan con la búsqueda.</p>'
+    }
+
+    function filterEvents() {
+        const checkboxes = document.querySelectorAll('.form-check-input:checked')
+        const selectedCategories = Array.from(checkboxes).map(checkbox => checkbox.value.toLowerCase())
+
+        const searchText = document.getElementById('searchText').value.trim().toLowerCase()
+
+        const filteredEvents = data.events.filter(evento => {
+            const categoryMatch = selectedCategories.length === 0 || selectedCategories.includes(evento.category.toLowerCase());
+            const textMatch = evento.name.toLowerCase().includes(searchText) || evento.description.toLowerCase().includes(searchText);
+
+            return categoryMatch && textMatch
+        })
+
+        showCards(filteredEvents)
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const categories = []
+
+        // Obtener todas las categorías únicas de los eventos
+        data.events.forEach(event => {
+            if (!categories.includes(event.category)) {
+                categories.push(event.category)
+            }
+        })
+
+        // Contenedor  checkboxes
+        const checkboxContainer = document.getElementById('checkbox-container')
+
+        // HTML para los checkboxes
+        let checkboxesHTML = ''
+
+        categories.forEach(category => {
+            const id = category.toLowerCase().replace(' ', '-') + '-checkbox'
+            const value = category.toLowerCase()
+
+            checkboxesHTML += `
+            <div class="check-1 d-flex align-items-center col-sm-1 col-md-1 col-lg-3 col-xl-2">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="${id}" value="${value}">
+                    <label class="form-check-label" for="${id}">${category}</label>
+                </div>
+            </div>
+        `
+        })
+
+        // Insertar los checkboxes en el contenedor
+        checkboxContainer.innerHTML = checkboxesHTML
+
+        // Escuchar cambios en los checkboxes y el campo de búsqueda
+        const checkboxInputs = document.querySelectorAll('.form-check-input')
+        checkboxInputs.forEach(input => {
+            input.addEventListener('change', filterEvents)
+        })
+
+        // Campo de búsqueda por texto
+        const searchInput = document.getElementById('searchText')
+        searchInput.addEventListener('input', filterEvents)
+
+        // Mostrar todas las tarjetas al cargar la página
+        showCards(data.events)
+    })
 }
 
 showCards(data.events)
+
+
+
+
+
+
+
+
+
+
